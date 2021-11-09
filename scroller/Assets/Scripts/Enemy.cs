@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
+    PlayerSoundController soundController;
+
     // Start is called before the first frame update
     protected void Awake()
     {
         moveDirection = new Vector2(-1,0);
         spriteRenderer = GetComponent<SpriteRenderer>();
+        soundController = GetComponent<PlayerSoundController>();
+
     }
     // Update is called once per frame
     protected virtual void Update()
@@ -44,6 +48,12 @@ public class Enemy : Entity
             Death();
         }
 
+    }
+
+    public override void TakeDamage(int _sentDamage)
+    {
+        soundController.PlaySound(SoundStates.Hurt);
+        base.TakeDamage(_sentDamage);
     }
     public virtual void Death()
     {

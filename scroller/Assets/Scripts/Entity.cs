@@ -29,6 +29,11 @@ public class Entity : MonoBehaviour
 
     protected RaycastHit2D[] Hits = new RaycastHit2D[2];      //stored hits from CheckHit
 
+    private void Start()
+    {
+        healthCurrent = healthTotal;
+    }
+
     protected virtual bool CheckHit() { return false; }//this checks the area infornt of the entity when it is moving
     protected Vector2 PixelPerfectClamp(Vector2 mMoveVector, float mPixelsPerUnit)
     {

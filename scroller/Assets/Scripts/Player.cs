@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : Entity
 {
     InputSystem inputActions;               //new input system
+    PlayerSoundController soundController;
 
     public Transform barrel;                //location from where the bullet is fired 
     public PlayerBullet[] playerBullets;    //pool of bullets which are used when shooting
@@ -18,6 +19,7 @@ public class Player : Entity
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();                                        // gets sprite renderer
+        soundController = GetComponent<PlayerSoundController>();                                        
         //Input system
         inputActions = new InputSystem();                                                       //creates an Input system to get inputs from 
         inputActions.Player.Move.performed += ctx => moveDirection = ctx.ReadValue<Vector2>();  //movement input
@@ -95,6 +97,7 @@ public class Player : Entity
     {
         if (playerBullets[currentBullet])
         {
+            soundController.PlaySound(SoundStates.Shoot);
             playerBullets[currentBullet].transform.position = barrel.position;
             playerBullets[currentBullet].ActivateBullet(new Vector2(1, 0), damage);
 
@@ -109,7 +112,6 @@ public class Player : Entity
         }
         //soundManager.PlaySound(SoundType.Shoot);
     }
-
     private void OnEnable()
     {
         inputActions.Enable();

@@ -63,7 +63,7 @@ public class EnemySpawner : MonoBehaviour
         float _spawnTime = maxSpawnTime;
         int _spawnLoc = Random.Range(0, spawnLocations.Length);
         yield return new WaitForSeconds(_spawnTime);
-        Instantiate(enemyPrefab[(int)enemyWave[currentEnemy]].gameObject, spawnLocations[_spawnLoc]);
+        Instantiate(enemyPrefab[(int)enemyWave[currentEnemy]].gameObject, spawnLocations[_spawnLoc].position,Quaternion.identity);
         currentEnemy++;
         enemySpawningFirst = null;
         enemySpawning = EnemySpawn();
